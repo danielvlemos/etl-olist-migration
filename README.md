@@ -5,12 +5,15 @@ Este projeto consiste na construção de um pipeline de ETL (Extract, Transform,
 
 ## 1. O Contexto e o Legado
 **A Origem:** O "legado" consistia em um ecossistema de dados fragmentado em 9 arquivos CSV separados (clientes, pedidos, itens, pagamentos, produtos, etc.), totalizando mais de 100 mil registros de vendas.
-**Desafios de Qualidade:** * **Fragmentação Extrema:** A ausência de uma Tabela Fato consolidada exigia múltiplos cruzamentos (joins) pesados para análises simples.
+
+**Desafios de Qualidade:** 
+* **Fragmentação Extrema:** A ausência de uma Tabela Fato consolidada exigia múltiplos cruzamentos (joins) pesados para análises simples.
 * **Inconsistências Temporais:** Necessidade de conversão e padronização de múltiplos campos de data/hora que vinham como texto (strings).
 * **Campos Desnecessários/Sujos:** Colunas operacionais que não agregavam valor analítico e precisavam ser expurgadas.
 
 ## 2. A Estratégia de Mapeamento (De/Para)
 **Engenharia Reversa:** Realizei o mapeamento das chaves primárias e estrangeiras (`order_id`, `customer_id`, `product_id`) espalhadas pelos arquivos para entender a cardinalidade real do negócio.
+
 **Modelagem Dimensional (Star Schema):**
 * Defini a criação de uma **Tabela Fato** (`fact_vendas`) cruzando as informações de pedidos (`orders`) e itens (`order_items`).
 * Isolei as informações de contorno em **Tabelas Dimensão** (`dim_products`, `dim_customers`, `dim_sellers`).
